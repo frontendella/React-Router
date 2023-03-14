@@ -6,5 +6,5 @@ export default function Dashboard(){
         <>
             <h1>Dashboard goes here</h1>
         </>
-    )
+    )  
 }
