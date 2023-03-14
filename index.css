@@ -24,6 +24,12 @@ body {
     flex-direction: column;
 }
 
+a.active-link {
+    font-weight: bold;
+    text-decoration: underline;
+    color: #161616;
+}
+
 header {
     height: 110px;
     display: flex;
@@ -257,9 +263,7 @@ i[class*='van-type-'] {
     text-decoration: none;
 }
 
-.van-detail-container .back-button:visited {
-    
-}
+
 
 .van-detail-container .back-button span {
     text-decoration: underline;
