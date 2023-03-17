@@ -1,9 +1,7 @@
-import React from "react";
+import React from "react"
 
-export default function Income(){
+export default function Income() {
     return (
-        <div>
-            <h1>Host Income here</h1>
-        </div>
+        <h1>Income page goes here</h1>
     )
 }

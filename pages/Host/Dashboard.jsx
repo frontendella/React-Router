@@ -1,10 +1,7 @@
-import React from "react";
-import { Outlet } from "react-router-dom";
+import React from "react"
 
-export default function Dashboard(){
+export default function Dashboard() {
     return (
-        <>
-            <h1>Dashboard goes here</h1>
-        </>
-    )  
+        <h1>Dashboard goes here</h1>
+    )
 }

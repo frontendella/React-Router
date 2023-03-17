@@ -1,7 +1,7 @@
-import React from "react";
+import React from "react"
 
-export default function Reviews(){
+export default function Reviews() {
     return (
-        <h1>Host Reviews here</h1>
+        <h1>Reviews page goes here</h1>
     )
 }
