@@ -2,6 +2,11 @@ import React from "react"
 import { Link, useSearchParams } from "react-router-dom"
 import { getVans } from "../../api"
 
+export function loader(){
+    return "Vans data goes here "
+}
+
+
 export default function Vans() {
     const [searchParams, setSearchParams] = useSearchParams()
     const [vans, setVans] = React.useState([])
@@ -49,6 +54,8 @@ export default function Vans() {
         </div>
     ))
 
+
+
     function handleFilterChange(key, value) {
         setSearchParams(prevParams => {
             if (value === null) {
@@ -66,6 +73,7 @@ export default function Vans() {
     if (error) {
         return <h1>There was an error: {error.message}</h1>
     }
+
 
     return (
         <div className="van-list-container">
