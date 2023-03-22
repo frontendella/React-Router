@@ -1,5 +1,5 @@
 import React from "react"
-import { useNavigate, useLocation, useActionData, Form } from "react-router-dom"
+import { useNavigate, useNavigation, useLocation, useActionData, Form } from "react-router-dom"
 import { loginUser } from "../api"
 
 export async function action({ request }) {
@@ -19,22 +19,19 @@ export async function action({ request }) {
 }
 
 /**
- * Challenge: Remove any local state we created prior for 
- * handling errors, and instead handle errors via the action 
- * function with a helpful message on the login page. 
+ * Challenge: Disable the Log in button and change its text to
+ * "Logging in..." when the form is in a "submitting" state.
  * 
- * Hints: 
- * - You can trigger an error by submitting the form
- *   without filling it out. 
- * - Check api.js to see what the structure of the error object 
- *   coming back from the loginUser function will look like.
+ * Extra credit: Change the button's background color to "#AAAAAA"
+ * and use cursor: not-allowed while the button is in its "disabled"
+ * state.
  */
 
 export default function Login() {
-    const [status, setStatus] = React.useState("idle")
     const data = useActionData()
     const location = useLocation()
     const navigate = useNavigate()
+    const navigation = useNavigation()
     const from = location.state?.from || "/host";
  
     if (data?.token) {
@@ -67,10 +64,10 @@ export default function Login() {
                     type="password"
                     placeholder="Password"
                 />
-                <button 
-                    disabled={status === "submitting"}
+                <button
+                    disabled={navigation.state === "submitting"}
                 >
-                    {status === "submitting" 
+                    {navigation.state === "submitting" 
                         ? "Logging in..." 
                         : "Log in"
                     }
