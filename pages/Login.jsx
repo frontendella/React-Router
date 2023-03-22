@@ -6,14 +6,32 @@ export async function action({ request }) {
     const formData = await request.formData()
     const email = formData.get("email")
     const password = formData.get("password")
-    const data = await loginUser({email, password})
-    localStorage.setItem("loggedin", true)
-    return data
+    
+    try {
+        const data = await loginUser({email, password})
+        localStorage.setItem("loggedin", true)
+        return data
+    } catch(err) {
+        return {
+            error: err.message
+        }
+    }
 }
+
+/**
+ * Challenge: Remove any local state we created prior for 
+ * handling errors, and instead handle errors via the action 
+ * function with a helpful message on the login page. 
+ * 
+ * Hints: 
+ * - You can trigger an error by submitting the form
+ *   without filling it out. 
+ * - Check api.js to see what the structure of the error object 
+ *   coming back from the loginUser function will look like.
+ */
 
 export default function Login() {
     const [status, setStatus] = React.useState("idle")
-    const [error, setError] = React.useState(null)
     const data = useActionData()
     const location = useLocation()
     const navigate = useNavigate()
@@ -31,8 +49,8 @@ export default function Login() {
             }
             <h1>Sign in to your account</h1>
             {
-                error && 
-                <h3 className="login-error">{error.message}</h3>
+                data?.error && 
+                <h3 className="login-error">{data.error}</h3>
             }
             <Form 
                 action="/login" 
