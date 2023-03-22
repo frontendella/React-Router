@@ -1,50 +1,28 @@
 import React from "react"
-import { useNavigate, useLocation, Form } from "react-router-dom"
+import { useNavigate, useLocation, useActionData, Form } from "react-router-dom"
 import { loginUser } from "../api"
 
-export async function action({request}){
+export async function action({ request }) {
     const formData = await request.formData()
-    const email = formData.get('email')
-    const password = formData.get('password')
-    console.log(email, password)
+    const email = formData.get("email")
+    const password = formData.get("password")
+    const data = await loginUser({email, password})
+    localStorage.setItem("loggedin", true)
+    return data
 }
 
 export default function Login() {
-    const [loginFormData, setLoginFormData] = React.useState(
-        { email: "", password: "" }
-    )
     const [status, setStatus] = React.useState("idle")
     const [error, setError] = React.useState(null)
-    
+    const data = useActionData()
     const location = useLocation()
     const navigate = useNavigate()
     const from = location.state?.from || "/host";
  
-    function handleSubmit(e) {
-        e.preventDefault()
-        setStatus("submitting")
-        setError(null)
-        loginUser(loginFormData)
-            .then(data => {
-                localStorage.setItem("loggedin", true)
-                navigate(from, { replace: true })
-            })
-            .catch(err => {
-                setError(err)
-            })
-            .finally(() =>{
-                setStatus("idle")
-            })
+    if (data?.token) {
+        navigate(from, { replace: true })
     }
-
-    function handleChange(e) {
-        const { name, value } = e.target
-        setLoginFormData(prev => ({
-            ...prev,
-            [name]: value
-        }))
-    }
-
+    
     return (
         <div className="login-container">
             {
@@ -63,17 +41,13 @@ export default function Login() {
             >
                 <input
                     name="email"
-                    onChange={handleChange}
                     type="email"
                     placeholder="Email address"
-                    value={loginFormData.email}
                 />
                 <input
                     name="password"
-                    onChange={handleChange}
                     type="password"
                     placeholder="Password"
-                    value={loginFormData.password}
                 />
                 <button 
                     disabled={status === "submitting"}
