@@ -10,8 +10,6 @@ export default function VanDetail() {
     const location = useLocation()
     const loaderData = useLoaderData()
 
-    const [van, setVan] = React.useState(null)
-
     const search = location.state ?.search || "";
     const type = location.state ?.type || "all";
 
