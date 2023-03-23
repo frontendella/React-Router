@@ -1,20 +1,15 @@
-import React, {Suspense} from "react"
-import { Link, Await, useLoaderData, defer } from "react-router-dom"
+import React from "react"
+import { Link, defer, useLoaderData, Await } from "react-router-dom"
 import { getHostVans } from "../../api"
 
-
-
-export function loader(){
-    const VansPromise = getHostVans()
-    return defer({
-        vans: VansPromise
-    })
+export function loader() {
+    return defer({ vans: getHostVans() })
 }
 
 export default function HostVans() {
     const loaderData = useLoaderData()
 
-    function renderVanElements(vans){
+    function renderVanElements(vans) {
         const hostVansEls = vans.map(van => (
             <Link
                 to={van.id}
@@ -33,27 +28,21 @@ export default function HostVans() {
 
         return (
             <div className="host-vans-list">
-                {
-                         <section>
-                            {hostVansEls}
-                        </section>
-                }
+                <section>
+                    {hostVansEls}
+                </section>
             </div>
-
         )
     }
 
-    
-
     return (
-            <section>
-                <h1 className="host-vans-title">Your listed vans</h1>
-                <Suspense fallback={<h2>Loading vans...</h2>}>
-                    <Await resolve={loaderData.vans}>
+        <section>
+            <h1 className="host-vans-title">Your listed vans</h1>
+            <React.Suspense fallback={<h2>Loading vans...</h2>}>
+                <Await resolve={loaderData.vans}>
                     {renderVanElements}
-                    </Await>
-                </Suspense>
-            </section>
-
+                </Await>
+            </React.Suspense>
+        </section>
     )
 }
