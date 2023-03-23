@@ -25,10 +25,13 @@ export default function Login() {
     const navigate = useNavigate()
     const navigation = useNavigation()
     const from = location.state?.from || "/host";
- 
-    if (data?.token) {
-        navigate(from, { replace: true })
-    }
+    
+    React.useEffect(()=>{
+        if (data?.token) {
+            navigate(from, { replace: true })
+        }
+    }, [data])
+
     
     return (
         <div className="login-container">
