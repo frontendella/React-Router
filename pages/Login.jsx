@@ -18,15 +18,6 @@ export async function action({ request }) {
     }
 }
 
-/**
- * Challenge: Disable the Log in button and change its text to
- * "Logging in..." when the form is in a "submitting" state.
- * 
- * Extra credit: Change the button's background color to "#AAAAAA"
- * and use cursor: not-allowed while the button is in its "disabled"
- * state.
- */
-
 export default function Login() {
     const data = useActionData()
     const location = useLocation()

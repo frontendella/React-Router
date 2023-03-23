@@ -14,7 +14,7 @@ import VanDetail from "./pages/Vans/VanDetail"
 import Dashboard from "./pages/Host/Dashboard"
 import Income from "./pages/Host/Income"
 import Reviews from "./pages/Host/Reviews"
-import HostVans from "./pages/Host/HostVans"
+import HostVans, {loader as hostVansLoader } from "./pages/Host/HostVans"
 import HostVanDetail from "./pages/Host/HostVanDetail"
 import HostVanInfo from "./pages/Host/HostVanInfo"
 import HostVanPricing from "./pages/Host/HostVanPricing"
@@ -50,7 +50,7 @@ const router = createBrowserRouter(createRoutesFromElements(
         <Route index element={<Dashboard />} />
         <Route path="income" element={<Income />} />
         <Route path="reviews" element={<Reviews />} />
-        <Route path="vans" element={<HostVans />} />
+        <Route path="vans" element={<HostVans />} loader={hostVansLoader} />
         <Route path="vans/:id" element={<HostVanDetail />}>
           <Route index element={<HostVanInfo />} />
           <Route path="pricing" element={<HostVanPricing />} />
