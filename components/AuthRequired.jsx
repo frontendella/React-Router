@@ -5,7 +5,7 @@ export default function AuthRequired() {
     const isLoggedIn = localStorage.getItem("loggedin")
     const location = useLocation()
     
-    if (!isLoggedIn) {
+    if (false) {
         return (
             <Navigate
                 to="/login"
